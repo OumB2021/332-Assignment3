@@ -13,22 +13,33 @@ struct node
   struct node *prev;
 };
 
-// insert a new node at the beginning of the linked list
+// insert a new node at the head of the linked list
 struct node *insertInLinkedList(struct node *head, int data)
 {
   // create a new node
   struct node *newNode = (struct node *)malloc(sizeof(struct node));
   newNode->data = data; // insert data into new node
-  newNode->next = head; // have new node point to head
-  newNode->prev = NULL; // new node prev point to null
+  newNode->next = NULL; // have new node point to head
 
-  // make the new node to be head
-  if (head != NULL)
+  // if head is NULL then list is empty
+  if (head == NULL)
   {
-    head->prev = newNode;
+    newNode->prev = NULL;
+    return newNode;
+  }
+  // traverse the list until the one before last.
+  struct node *current = head;
+  while (current->next != NULL)
+  {
+    current = current->next;
   }
 
-  return newNode; // return the new node
+  // have the current-next point to the new node
+  // and the prev node to point to the last node in the list
+  current->next = newNode;
+  newNode->prev = current;
+
+  return head;
 }
 
 // Display linked list
@@ -37,7 +48,7 @@ void displayLinkedList(struct node *head)
   struct node *current = head;
   // Traverse the linked list and print the values
 
-  printf("Reverse order: ");
+  printf("Forward order: ");
 
   while (current->next != NULL)
   {
@@ -46,7 +57,7 @@ void displayLinkedList(struct node *head)
   }
   printf("%d -> NULL\n", current->data);
 
-  printf("Forward order: ");
+  printf("Reverse order: ");
   while (current != NULL)
   {
     printf("%d -> ", current->data);
