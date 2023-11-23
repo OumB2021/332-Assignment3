@@ -31,15 +31,15 @@ int main(int argc, char *argv[])
   int count = 1;  // count for loop
   // while loop reads each character in source.txt and copies it into destination.txt
   while ((bytes_read = read(fd_source, &c, sizeof(c))) > 0)
-  {
     write(fd_destination, &c, sizeof(c)); // write value to destination
-    count++;
-  }
 
   close(fd_source);      // close source file
   close(fd_destination); // close destination file
+  printf("\nContent copied sucessfully from %s to %s\n", argv[1], argv[2]);
 
-  printf("\nContent copied sucessfully from '%s' to destination\n", argv[1]);
+  sleep(10); // Sleep for 10 seconds
+
+  exit(EXIT_SUCCESS);
 
   return 0;
 }
